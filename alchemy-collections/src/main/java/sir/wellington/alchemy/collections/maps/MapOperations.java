@@ -15,12 +15,16 @@
  */
 package sir.wellington.alchemy.collections.maps;
 
+import com.google.common.collect.ImmutableMap;
 import java.util.Arrays;
 import static java.util.Collections.EMPTY_MAP;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static sir.wellington.alchemy.arguments.Arguments.checkThat;
+import static sir.wellington.alchemy.arguments.Assertions.notNull;
 
 /**
  *
@@ -64,6 +68,35 @@ public final class MapOperations
     public static <K, V> Map<K, V> nullToEmpty(Map<K, V> map)
     {
         return isEmpty(map) ? EMPTY_MAP : map;
+    }
+
+    public static <K, V> Map<K, V> immutableCopyOf(Map<K, V> map) throws IllegalArgumentException
+    {
+        checkThat(map).is(notNull());
+        return ImmutableMap.copyOf(map);
+    }
+
+    public static <K, V> Map<K, V> mutableCopyOf(Map<K, V> map)
+    {
+        checkThat(map).is(notNull());
+        return copyOf(map, () -> new HashMap<>());
+    }
+
+    public static <K, V> Map<K, V> copyOf(Map<K, V> map, Supplier<Map<K, V>> mapSupplier)
+    {
+        checkThat(map).is(notNull());
+
+        checkThat(mapSupplier)
+                .usingMessage("map supplier cannot be null")
+                .is(notNull());
+
+        Map<K, V> result = mapSupplier.get();
+        checkThat(result)
+                .usingMessage("supplier returned a null map")
+                .is(notNull());
+
+        result.putAll(map);
+        return result;
     }
 
 }
