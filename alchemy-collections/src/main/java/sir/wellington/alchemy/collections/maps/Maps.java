@@ -15,29 +15,37 @@
  */
 package sir.wellington.alchemy.collections.maps;
 
-import com.google.common.collect.ImmutableMap;
 import java.util.Arrays;
+import java.util.Collections;
+
 import static java.util.Collections.EMPTY_MAP;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static sir.wellington.alchemy.arguments.Arguments.checkThat;
-import static sir.wellington.alchemy.arguments.Assertions.notNull;
+
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
 
 /**
  *
  * @author SirWellington
  */
-public final class MapOperations
+public final class Maps
 {
 
-    private final static Logger LOG = LoggerFactory.getLogger(MapOperations.class);
+    private final static Logger LOG = LoggerFactory.getLogger(Maps.class);
 
-    private MapOperations() throws IllegalAccessException
+    private Maps() throws IllegalAccessException
     {
         throw new IllegalAccessException("cannot instantiate this class");
+    }
+
+    public static <K, V> Map<K, V> create()
+    {
+        return new HashMap<>();
     }
 
     public static boolean isEmpty(Map<?, ?> map)
@@ -73,7 +81,8 @@ public final class MapOperations
     public static <K, V> Map<K, V> immutableCopyOf(Map<K, V> map) throws IllegalArgumentException
     {
         checkThat(map).is(notNull());
-        return ImmutableMap.copyOf(map);
+        Map<K, V> copy = new HashMap<>(map);
+        return Collections.unmodifiableMap(copy);
     }
 
     public static <K, V> Map<K, V> mutableCopyOf(Map<K, V> map)
