@@ -33,12 +33,12 @@ import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
  *
  * @author SirWellington
  */
-public final class Maps
+public final class MapOperations
 {
 
-    private final static Logger LOG = LoggerFactory.getLogger(Maps.class);
+    private final static Logger LOG = LoggerFactory.getLogger(MapOperations.class);
 
-    private Maps() throws IllegalAccessException
+    private MapOperations() throws IllegalAccessException
     {
         throw new IllegalAccessException("cannot instantiate this class");
     }
