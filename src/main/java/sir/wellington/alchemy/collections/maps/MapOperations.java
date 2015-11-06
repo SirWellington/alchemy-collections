@@ -17,15 +17,17 @@ package sir.wellington.alchemy.collections.maps;
 
 import java.util.Arrays;
 import java.util.Collections;
-
-import static java.util.Collections.EMPTY_MAP;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
+import tech.sirwellington.alchemy.annotations.concurrency.ThreadSafe;
+import tech.sirwellington.alchemy.annotations.concurrency.ThreadUnsafe;
 
+import static java.util.Collections.EMPTY_MAP;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
 
@@ -33,6 +35,7 @@ import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
  *
  * @author SirWellington
  */
+@NonInstantiable
 public final class MapOperations
 {
 
@@ -43,9 +46,16 @@ public final class MapOperations
         throw new IllegalAccessException("cannot instantiate this class");
     }
 
+    @ThreadUnsafe
     public static <K, V> Map<K, V> create()
     {
         return new HashMap<>();
+    }
+
+    @ThreadSafe
+    public static <K, V> Map<K, V> createSynchronized()
+    {
+        return new ConcurrentHashMap<>();
     }
 
     public static boolean isEmpty(Map<?, ?> map)
@@ -53,7 +63,7 @@ public final class MapOperations
         return map != null && !map.isEmpty();
     }
 
-    public static <K, V> Map<K, V> join(Map<K, V> firstMap, Map<K, V>... others)
+    public static <K, V> Map<K, V> merge(Map<K, V> firstMap, Map<K, V>... others)
     {
         Map<K, V> result = new HashMap<>();
 
@@ -80,20 +90,22 @@ public final class MapOperations
 
     public static <K, V> Map<K, V> immutableCopyOf(Map<K, V> map) throws IllegalArgumentException
     {
-        checkThat(map).is(notNull());
+        if (map == null)
+        {
+            return Collections.emptyMap();
+        }
+
         Map<K, V> copy = new HashMap<>(map);
         return Collections.unmodifiableMap(copy);
     }
 
     public static <K, V> Map<K, V> mutableCopyOf(Map<K, V> map)
     {
-        checkThat(map).is(notNull());
         return copyOf(map, () -> new HashMap<>());
     }
 
     public static <K, V> Map<K, V> copyOf(Map<K, V> map, Supplier<Map<K, V>> mapSupplier)
     {
-        checkThat(map).is(notNull());
 
         checkThat(mapSupplier)
                 .usingMessage("map supplier cannot be null")
@@ -104,7 +116,11 @@ public final class MapOperations
                 .usingMessage("supplier returned a null map")
                 .is(notNull());
 
-        result.putAll(map);
+        if (!isEmpty(map))
+        {
+            result.putAll(map);
+        }
+
         return result;
     }
 
