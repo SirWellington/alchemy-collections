@@ -30,10 +30,6 @@
     <prerequisites>
         <maven>3.0.3</maven>
     </prerequisites>
-    <ciManagement>
-        <system>hudson</system>
-        <url>http://jenkins:8080/job/Alchemy%20Collections/</url>
-    </ciManagement>
 
     <dependencies>
         
