@@ -29,7 +29,7 @@ import tech.sirwellington.alchemy.annotations.concurrency.ThreadUnsafe;
 
 import static java.util.Collections.EMPTY_MAP;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
-import static tech.sirwellington.alchemy.arguments.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
 /**
  *
