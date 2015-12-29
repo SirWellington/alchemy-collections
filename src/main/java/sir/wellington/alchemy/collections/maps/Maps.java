@@ -30,18 +30,19 @@ import tech.sirwellington.alchemy.annotations.concurrency.ThreadUnsafe;
 import static java.util.Collections.EMPTY_MAP;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 
 /**
  *
  * @author SirWellington
  */
 @NonInstantiable
-public final class MapOperations
+public final class Maps
 {
 
-    private final static Logger LOG = LoggerFactory.getLogger(MapOperations.class);
+    private final static Logger LOG = LoggerFactory.getLogger(Maps.class);
 
-    private MapOperations() throws IllegalAccessException
+    private Maps() throws IllegalAccessException
     {
         throw new IllegalAccessException("cannot instantiate this class");
     }
