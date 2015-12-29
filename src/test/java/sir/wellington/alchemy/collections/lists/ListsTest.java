@@ -22,6 +22,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import sir.wellington.alchemy.collections.sets.Sets;
 import tech.sirwellington.alchemy.generator.AlchemyGenerator;
 import tech.sirwellington.alchemy.generator.StringGenerators;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
@@ -33,7 +34,6 @@ import static org.junit.Assert.*;
 import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
 import static tech.sirwellington.alchemy.generator.CollectionGenerators.listOf;
 import static tech.sirwellington.alchemy.generator.NumberGenerators.positiveIntegers;
-import static tech.sirwellington.alchemy.generator.StringGenerators.alphabeticString;
 import static tech.sirwellington.alchemy.generator.StringGenerators.strings;
 import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
 
@@ -45,12 +45,14 @@ import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThr
 @RunWith(AlchemyTestRunner.class)
 public class ListsTest 
 {
+    private AlchemyGenerator<String> generator;
 
     @Before
     public void setUp()
     {
+        generator = StringGenerators.alphanumericString();
     }
-    
+
     @DontRepeat
     @Test
     public void testCannotInstantiate()
@@ -70,22 +72,19 @@ public class ListsTest
     @Test
     public void testCreateReturnsDifferent()
     {
-        AlchemyGenerator<String> generator = StringGenerators.alphabeticString();
         
         List<String> first = Lists.create();
         List<String> second = Lists.create();
         assertThat(first, not(sameInstance(second)));
         
-        
         first.add(generator.get());
         assertThat(second, is(empty()));
-        
     }
 
     @Test
     public void testCopy()
     {
-        List<String> list = listOf(alphabeticString());
+        List<String> list = listOf(generator);
         
         List<String> result = Lists.copy(list);
         assertThat(result, not(sameInstance(list)));
@@ -119,6 +118,31 @@ public class ListsTest
         assertThat(result, not(empty()));
         numbers.forEach(n -> assertThat(n, isIn(result)));
         result.forEach(n -> assertThat(n, isIn(numbers)));
+    }
+
+    @Test
+    public void testOneOf()
+    {
+        //Edge Cases
+        assertThrows(() -> Lists.oneOf(null))
+            .isInstanceOf(IllegalArgumentException.class);
+        
+        assertThrows(() -> Lists.oneOf(Lists.emptyList()))
+            .isInstanceOf(IllegalArgumentException.class);
+            
+        List<String> strings = listOf(generator);
+        String result = Lists.oneOf(strings);
+        assertThat(result, isIn(strings));
+        
+        long start = System.currentTimeMillis();
+        Set<String> set = Sets.create();
+        for(String string : strings)
+        {
+            set.add(Lists.oneOf(strings));
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("oneOf took " + (end - start) + "ms");
+        assertThat(set.size(), greaterThan(1));
     }
     
 

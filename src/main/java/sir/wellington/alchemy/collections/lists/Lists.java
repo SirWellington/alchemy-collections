@@ -22,10 +22,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
+import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
+
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions.nonEmptyList;
 
 /**
  *
@@ -67,6 +73,19 @@ public final class Lists
     public static <E> List<E> toList(Set<E> set)
     {
         return copy(set);
+    }
+    
+    public static <E> E oneOf(@NonEmpty List<E> list)
+    {
+        checkThat(list)
+            .usingMessage("List cannot be empty")
+            .is(notNull())
+            .is(nonEmptyList());
+        
+        Random random = new Random();
+        int index = random.nextInt(list.size());
+        
+        return list.get(index);
     }
 
 }
