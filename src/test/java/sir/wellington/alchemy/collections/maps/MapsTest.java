@@ -17,6 +17,7 @@
 package sir.wellington.alchemy.collections.maps;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static tech.sirwellington.alchemy.generator.CollectionGenerators.mapOf;
 import static tech.sirwellington.alchemy.generator.StringGenerators.alphabeticString;
+import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
 
 /**
  *
@@ -108,7 +110,15 @@ public class MapsTest
     @Test
     public void testImmutableCopyOf()
     {
+        Map<String, String> map = mapOf(generator, generator);
+        Map<String, String> immutableCopy = Maps.immutableCopyOf(map);
         
+        assertThat(immutableCopy, notNullValue());
+        assertThat(immutableCopy, is(map));
+        
+        assertThrows(() -> immutableCopy.clear());
+        assertThrows(() -> immutableCopy.remove("some key"));
+        assertThrows(() -> immutableCopy.put(generator.get(), generator.get()));
     }
 
     @Test
@@ -119,6 +129,13 @@ public class MapsTest
     @Test
     public void testCopyOf()
     {
+        Map<String, String> map = mapOf(generator, generator);
+        
+        Map<String, String> result = Maps.copyOf(map, () -> new LinkedHashMap<>());
+        assertThat(result, notNullValue());
+        assertThat(result, is(map));
+        assertThat(result, is(instanceOf(LinkedHashMap.class)));
+        
     }
 
 }
