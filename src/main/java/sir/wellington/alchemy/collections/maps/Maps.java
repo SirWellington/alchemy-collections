@@ -30,7 +30,6 @@ import tech.sirwellington.alchemy.annotations.concurrency.ThreadUnsafe;
 import static java.util.Collections.EMPTY_MAP;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 
 /**
  *
@@ -61,7 +60,7 @@ public final class Maps
 
     public static boolean isEmpty(Map<?, ?> map)
     {
-        return map != null && !map.isEmpty();
+        return map == null || map.isEmpty();
     }
 
     public static <K, V> Map<K, V> merge(Map<K, V> firstMap, Map<K, V>... others)
