@@ -44,6 +44,20 @@ String anyString = Lists.oneOf(strings);
 ## Maps
 `sir.wellington.alchemy.collections.maps.Maps`
 
+## Create
+```java
+Map<Integer, String> map = Maps.create();
+
+Map<Integer, String> defensiveCopy = Maps.immutableCopyOf(map);
+```
+
+## Merge
+```java
+Map<String, Object> first = ...;
+Map<String, Object> second = ...;
+Map<String, Object> merged = Maps.merge(first, second);
+```
+
 ## Sets
 `sir.wellington.alchemy.collections.sets.Sets`
 
