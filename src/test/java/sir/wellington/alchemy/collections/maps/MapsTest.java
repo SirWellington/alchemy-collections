@@ -43,11 +43,13 @@ public class MapsTest
 {
 
     private AlchemyGenerator<String> generator;
+    private Map<String, String> map;
 
     @Before
     public void setUp()
     {
         generator = alphabeticString();
+        map = mapOf(generator, generator, 10);
     }
 
     @Test
@@ -73,10 +75,8 @@ public class MapsTest
     @Test
     public void testIsEmpty()
     {
-        Map<String, String> map = mapOf(generator, generator, 10);
-        
         assertThat(Maps.isEmpty(map), is(false));
-        
+
         map.clear();
         assertThat(Maps.isEmpty(map), is(true));
     }
@@ -84,25 +84,24 @@ public class MapsTest
     @Test
     public void testMerge()
     {
-        Map<String,String> first = mapOf(generator, generator);
+        Map<String, String> first = mapOf(generator, generator);
         Map<String, String> second = mapOf(generator, generator);
-        
+
         Map<String, String> result = Maps.merge(first, second);
         assertThat(result.isEmpty(), is(false));
-        
-        Map<String,String> expected = new HashMap<>(first);
+
+        Map<String, String> expected = new HashMap<>(first);
         expected.putAll(second);
-        
+
         assertThat(result, is(expected));
     }
 
     @Test
     public void testNullToEmpty()
     {
-        Map<Object, Object> map = Maps.nullToEmpty(null);
         assertThat(map, notNullValue());
         assertThat(map.isEmpty(), is(true));
-        
+
         Map<String, String> nonEmptyMap = mapOf(generator, generator);
         Map<String, String> result = Maps.nullToEmpty(nonEmptyMap);
         assertThat(result, is(nonEmptyMap));
@@ -111,12 +110,11 @@ public class MapsTest
     @Test
     public void testImmutableCopyOf()
     {
-        Map<String, String> map = mapOf(generator, generator);
         Map<String, String> immutableCopy = Maps.immutableCopyOf(map);
-        
+
         assertThat(immutableCopy, notNullValue());
         assertThat(immutableCopy, is(map));
-        
+
         assertThrows(() -> immutableCopy.clear());
         assertThrows(() -> immutableCopy.remove("some key"));
         assertThrows(() -> immutableCopy.put(generator.get(), generator.get()));
@@ -125,29 +123,25 @@ public class MapsTest
     @Test
     public void testMutableCopyOf()
     {
-        Map<String, String> map = mapOf(generator, generator);
-        
         Map<String, String> mutableCopy = Maps.mutableCopyOf(map);
         assertThat(mutableCopy, is(map));
-        
+
         String string = one(generator);
         mutableCopy.put(string, string);
         mutableCopy.remove(string);
         mutableCopy.clear();
-        
+
         assertThat(map.isEmpty(), is(false));
     }
 
     @Test
     public void testCopyOf()
     {
-        Map<String, String> map = mapOf(generator, generator);
-        
         Map<String, String> result = Maps.copyOf(map, () -> new LinkedHashMap<>());
         assertThat(result, notNullValue());
         assertThat(result, is(map));
         assertThat(result, is(instanceOf(LinkedHashMap.class)));
-        
+
     }
 
 }
