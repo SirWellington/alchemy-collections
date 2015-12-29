@@ -28,6 +28,7 @@ import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
 import static tech.sirwellington.alchemy.generator.CollectionGenerators.mapOf;
 import static tech.sirwellington.alchemy.generator.StringGenerators.alphabeticString;
 import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
@@ -124,6 +125,17 @@ public class MapsTest
     @Test
     public void testMutableCopyOf()
     {
+        Map<String, String> map = mapOf(generator, generator);
+        
+        Map<String, String> mutableCopy = Maps.mutableCopyOf(map);
+        assertThat(mutableCopy, is(map));
+        
+        String string = one(generator);
+        mutableCopy.put(string, string);
+        mutableCopy.remove(string);
+        mutableCopy.clear();
+        
+        assertThat(map.isEmpty(), is(false));
     }
 
     @Test
