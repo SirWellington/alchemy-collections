@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import tech.sirwellington.alchemy.generator.AlchemyGenerator;
 import tech.sirwellington.alchemy.generator.StringGenerators;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
+import tech.sirwellington.alchemy.test.junit.runners.DontRepeat;
 import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
 import static org.hamcrest.Matchers.*;
@@ -48,6 +49,14 @@ public class ListsTest
     @Before
     public void setUp()
     {
+    }
+    
+    @DontRepeat
+    @Test
+    public void testCannotInstantiate()
+    {
+        assertThrows(() -> Lists.class.newInstance())
+            .isInstanceOf(IllegalAccessException.class);
     }
 
     @Test
