@@ -108,12 +108,12 @@ public class MapsTest
     @Test
     public void testNullToEmpty()
     {
-        assertThat(map, notNullValue());
-        assertThat(map.isEmpty(), is(true));
+        Map<String, String>  emptyMap = Maps.nullToEmpty(null);
+        assertThat(emptyMap, notNullValue());
+        assertThat(emptyMap.isEmpty(), is(true));
 
-        Map<String, String> nonEmptyMap = mapOf(generator, generator);
-        Map<String, String> result = Maps.nullToEmpty(nonEmptyMap);
-        assertThat(result, is(nonEmptyMap));
+        Map<String, String> nonEmptyMap = Maps.nullToEmpty(map);
+        assertThat(nonEmptyMap, is(map));
     }
 
     @Test
