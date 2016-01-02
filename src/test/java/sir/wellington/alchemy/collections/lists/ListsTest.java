@@ -57,6 +57,9 @@ public class ListsTest
     @Test
     public void testCannotInstantiate()
     {
+        assertThrows(() -> new Lists())
+            .isInstanceOf(IllegalAccessException.class);
+        
         assertThrows(() -> Lists.class.newInstance())
             .isInstanceOf(IllegalAccessException.class);
     }

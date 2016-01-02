@@ -35,7 +35,7 @@ public final class Sets
 {
     private final static Logger LOG = LoggerFactory.getLogger(Sets.class);
     
-    private Sets() throws IllegalAccessException
+    Sets() throws IllegalAccessException
     {
         throw new IllegalAccessException("cannot instantiate");
     }

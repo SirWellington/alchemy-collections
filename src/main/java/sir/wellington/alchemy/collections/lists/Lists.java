@@ -43,7 +43,7 @@ public final class Lists
 {
     private final static Logger LOG = LoggerFactory.getLogger(Lists.class);
    
-    private Lists() throws IllegalAccessException
+    Lists() throws IllegalAccessException
     {
         throw new IllegalAccessException("cannot instantiate this class");
     }

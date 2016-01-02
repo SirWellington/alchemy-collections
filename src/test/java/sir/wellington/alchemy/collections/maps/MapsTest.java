@@ -57,6 +57,9 @@ public class MapsTest
     @Test
     public void testCannotInstantiate()
     {
+        assertThrows(() -> new Maps())
+            .isInstanceOf(IllegalAccessException.class);
+        
         assertThrows(() -> Maps.class.newInstance())
             .isInstanceOf(IllegalAccessException.class);
     }

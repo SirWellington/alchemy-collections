@@ -62,6 +62,9 @@ public class SetsTest
     @Test
     public void testCannotInstantiate()
     {
+        assertThrows(() -> new Sets())
+            .isInstanceOf(IllegalAccessException.class);
+        
         assertThrows(() -> Sets.class.newInstance())
             .isInstanceOf(IllegalAccessException.class);
     }
