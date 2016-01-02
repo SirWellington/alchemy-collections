@@ -98,6 +98,15 @@ public class ListsTest
         set.forEach(e -> assertThat(e, isIn(list)));
     }
     
+    @DontRepeat
+    @Test
+    public void testCopyNull()
+    {
+        List<Object> result = Lists.copy(null);
+        assertThat(result, notNullValue());
+        assertThat(result, is(empty()));
+    }
+    
     @Test
     public void testEmptyList()
     {

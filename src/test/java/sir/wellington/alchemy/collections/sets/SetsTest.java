@@ -118,4 +118,25 @@ public class SetsTest
         result.forEach(e -> assertThat(e, isIn(list)));
     }
 
+    @Test
+    public void testCopyOf()
+    {
+           List<String> list = listOf(generator);
+        Set<String> result = Sets.copyOf(list);
+        assertThat(result, notNullValue());
+        assertThat(result, not(empty()));
+        
+        list.forEach(e -> assertThat(e, isIn(result)));
+        result.forEach(e -> assertThat(e, isIn(list)));
+    }
+    
+    @DontRepeat
+    @Test
+    public void testCopyOfNull()
+    {
+        Set<Object> result = Sets.copyOf(null);
+        assertThat(result, notNullValue());
+        assertThat(result, is(empty()));
+    }
+
 }

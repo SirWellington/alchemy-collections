@@ -132,6 +132,15 @@ public class MapsTest
         assertThrows(() -> immutableCopy.put(generator.get(), generator.get()));
     }
 
+    @DontRepeat
+    @Test
+    public void testImmutableCopyOfNull()
+    {
+        Map<Object, Object> result = Maps.immutableCopyOf(null);
+        assertThat(result, notNullValue());
+        assertThat(result.isEmpty(), is(true));
+    }
+    
     @Test
     public void testMutableCopyOf()
     {
@@ -144,6 +153,15 @@ public class MapsTest
         mutableCopy.clear();
 
         assertThat(map.isEmpty(), is(false));
+    }
+    
+    @DontRepeat
+    @Test
+    public void testMutableCopyOfNull()
+    {
+        Map<Object, Object> result = Maps.mutableCopyOf(null);
+        assertThat(result, notNullValue());
+        assertThat(result.isEmpty(), is(true));
     }
 
     @Test

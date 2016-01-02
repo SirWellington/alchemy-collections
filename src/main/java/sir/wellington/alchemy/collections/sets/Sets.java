@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
- 
 package sir.wellington.alchemy.collections.sets;
-
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,41 +29,53 @@ import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
  * @author SirWellington
  */
 @NonInstantiable
-public final class Sets 
+public final class Sets
 {
+
     private final static Logger LOG = LoggerFactory.getLogger(Sets.class);
-    
+
     Sets() throws IllegalAccessException
     {
         throw new IllegalAccessException("cannot instantiate");
     }
-    
+
     public static <E> Set<E> create()
     {
         return new HashSet<>();
     }
-    
+
     public static <E> Set<E> emptySet()
     {
         Set<E> set = create();
         return Collections.unmodifiableSet(set);
     }
-    
+
     public static <E> Set<E> nullToEmpty(Set<E> set)
     {
         return set == null ? emptySet() : set;
     }
-    
+
+    /**
+     * Just an alias for {@link #copyOf(java.util.Collection) }
+     * @param <E>
+     * @param collection
+     * @return 
+     */
     public static <E> Set<E> toSet(Collection<E> collection)
+    {
+        return copyOf(collection);
+    }
+
+    public static <E> Set<E> copyOf(Collection<E> collection)
     {
         if (collection == null)
         {
             return emptySet();
         }
-        
+
         Set<E> set = create();
         set.addAll(collection);
-        
+
         return set;
     }
 }
