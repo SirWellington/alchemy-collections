@@ -53,11 +53,24 @@ public final class Lists
         return list == null || list.isEmpty();
     }
 
+    /**
+     * Creates an {@link ArrayList}.
+     * 
+     * @param <E>
+     * 
+     * @return 
+     */
     public static <E> List<E> create()
     {
         return new ArrayList<>();
     }
 
+    /**
+     * Creates a copy of the 
+     * @param <E>
+     * @param collection
+     * @return 
+     */
     public static <E> List<E> copy(@Nullable Collection<E> collection)
     {
         List<E> list = create();
@@ -70,6 +83,13 @@ public final class Lists
         return list;
     }
 
+    /**
+     * Creates a new Empty List that is immutable, so no new values
+     * can be added to it.
+     * 
+     * @param <E>
+     * @return 
+     */
     public static <E> List<E> emptyList()
     {
         List<E> list = create();
