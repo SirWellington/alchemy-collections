@@ -65,7 +65,7 @@ public final class Maps
 
     public static <K, V> Map<K, V> merge(Map<K, V> firstMap, Map<K, V>... others)
     {
-        Map<K, V> result = new HashMap<>();
+        Map<K, V> result = create();
 
         if (!isEmpty(firstMap))
         {
