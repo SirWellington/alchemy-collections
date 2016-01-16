@@ -46,12 +46,25 @@ public final class Maps
         throw new IllegalAccessException("cannot instantiate this class");
     }
 
+    /**
+     * Creates a new {@link HashMap}.
+     * 
+     * @param <K>
+     * @param <V>
+     * @return 
+     */
     @ThreadUnsafe
     public static <K, V> Map<K, V> create()
     {
         return new HashMap<>();
     }
 
+    /**
+     * Creates a {@link ThreadSafe} {@link ConcurrentHashMap}.
+     * @param <K>
+     * @param <V>
+     * @return 
+     */
     @ThreadSafe
     public static <K, V> Map<K, V> createSynchronized()
     {
