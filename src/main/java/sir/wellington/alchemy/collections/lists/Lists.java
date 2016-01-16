@@ -35,7 +35,8 @@ import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull
 import static tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions.nonEmptyList;
 
 /**
- *
+ * Operations built around {@linkplain List Lists}.
+ * 
  * @author SirWellington
  */
 @NonInstantiable
