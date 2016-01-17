@@ -22,7 +22,9 @@ import java.util.HashSet;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sir.wellington.alchemy.collections.lists.Lists;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
+import tech.sirwellington.alchemy.annotations.arguments.Optional;
 
 /**
  *
@@ -77,5 +79,41 @@ public final class Sets
         set.addAll(collection);
 
         return set;
+    }
+    
+    public static boolean isEmpty(Set<?> set)
+    {
+        return Lists.isEmpty(set);
+    }
+    
+    /**
+     * Creates a Union of all the specified collections.
+     * 
+     * @param <E>
+     * @param first
+     * @param rest
+     * @return 
+     */
+    public static <E> Set<E> unionOf(@Optional Collection<E> first, Collection<E>... rest)
+    {
+        Set<E> union = Sets.create();
+        
+        if(!Lists.isEmpty(first))
+        {
+            union.addAll(first);
+        }
+        
+        for(Collection<E> collection : rest)
+        {
+            union.retainAll(collection);
+        }
+        
+        return union;
+    }
+    
+    public static <E> boolean containTheSameElements(Collection<E> first, Collection<E>... rest)
+    {
+        Set<E> unionOf = unionOf(first, rest);
+        return !unionOf.isEmpty();
     }
 }

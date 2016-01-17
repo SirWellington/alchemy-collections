@@ -33,9 +33,12 @@ import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static tech.sirwellington.alchemy.generator.CollectionGenerators.listOf;
 import static tech.sirwellington.alchemy.generator.StringGenerators.alphanumericString;
+import static tech.sirwellington.alchemy.generator.StringGenerators.uuids;
 import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
 
 /**
@@ -137,6 +140,79 @@ public class SetsTest
         Set<Object> result = Sets.copyOf(null);
         assertThat(result, notNullValue());
         assertThat(result, is(empty()));
+    }
+
+    @Test
+    public void testIsEmpty()
+    {
+        Set<Object> emptySet = Sets.emptySet();
+        assertTrue(Sets.isEmpty(emptySet));
+        assertFalse(Sets.isEmpty(set));
+    }
+
+    @DontRepeat
+    @Test
+    public void testUnionOfWithNoParameters()
+    {
+        Set<Object> unionOf = Sets.unionOf(null);
+        assertThat(unionOf, notNullValue());
+        assertThat(unionOf.isEmpty(), is(true));
+    }
+    
+    @Test
+    public void testUnionOfWhenEqual()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.copyOf(first);
+        
+        Set<String> union = Sets.unionOf(first, second);
+        assertThat(union, is(first));
+        assertThat(union, is(second));
+    }
+    
+    @Test
+    public void testUnionOfWhenDifferent()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.toSet(listOf(generator));
+        second.addAll(first);
+        
+        Set<String> union = Sets.unionOf(first, second);
+        assertThat(union, is(first));
+    }
+    
+    @Test
+    public void testUnionOfWhenCompletelyDifferent()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.toSet(listOf(uuids));
+        
+        Set<String> union = Sets.unionOf(first, second);
+        assertThat(union, is(empty()));
+    }
+    
+    @Test
+    public void testContainTheSameElements()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.copyOf(first);
+        Set<String> third = Sets.copyOf(second);
+        
+        assertTrue(Sets.containTheSameElements(first, second, third));
+        assertTrue(Sets.containTheSameElements(first, second));
+        assertTrue(Sets.containTheSameElements(first, third));
+    }
+    
+    @Test
+    public void testContainTheSameElementsWhenDifferent()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.toSet(listOf(uuids));
+        Set<String> third = Sets.toSet(listOf(uuids));
+        
+        assertFalse(Sets.containTheSameElements(first, second, third));
+        assertFalse(Sets.containTheSameElements(first, second));
+        assertFalse(Sets.containTheSameElements(first, third));
     }
 
 }
