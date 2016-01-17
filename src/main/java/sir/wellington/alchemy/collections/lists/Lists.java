@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
@@ -97,7 +96,7 @@ public final class Lists
         return Collections.unmodifiableList(list);
     }
 
-    public static <E> List<E> toList(Set<E> set)
+    public static <E> List<E> toList(Collection<E> set)
     {
         return copy(set);
     }
