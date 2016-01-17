@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
-import tech.sirwellington.alchemy.annotations.arguments.Nullable;
+import tech.sirwellington.alchemy.annotations.arguments.Optional;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
@@ -48,7 +48,7 @@ public final class Lists
         throw new IllegalAccessException("cannot instantiate this class");
     }
     
-    public static boolean isEmpty(@Nullable Collection<?> list)
+    public static boolean isEmpty(@Optional Collection<?> list)
     {
         return list == null || list.isEmpty();
     }
@@ -71,7 +71,7 @@ public final class Lists
      * @param collection
      * @return 
      */
-    public static <E> List<E> copy(@Nullable Collection<E> collection)
+    public static <E> List<E> copy(@Optional Collection<E> collection)
     {
         List<E> list = create();
         if (isEmpty(collection))
@@ -114,7 +114,7 @@ public final class Lists
         return list.get(index);
     }
 
-    public static <E> List<E> combine(@Nullable List<E> first, @Nullable List<E>...additional)
+    public static <E> List<E> combine(@Optional List<E> first, @Optional List<E>...additional)
     {
         List<E> result = Lists.create();
    
