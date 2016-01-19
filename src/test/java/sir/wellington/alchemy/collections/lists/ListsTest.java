@@ -200,6 +200,41 @@ public class ListsTest
         expected.addAll(third);
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void testCreateFrom()
+    {
+        String first = one(strings());
+        List<String> rest = listOf(strings(), 20);
+        String[] restArray = rest.toArray(new String[0]);
+        
+        List<String> expected = Lists.create();
+        expected.add(first);
+        expected.addAll(rest);
+        
+        List<String> result = Lists.createFrom(first, restArray);
+        
+        assertThat(result, is(expected));
+    }
+    
+    @Test
+    public void testCreateFromWithOneValue()
+    {
+        String value = one(strings());
+        
+        List<String> result = Lists.createFrom(value);
+        assertThat(result, not(empty()));
+        assertThat(result.size(), is(1));
+        assertThat(result, contains(value));
+    }
+    
+    @Test
+    public void testCreateFromWithBadArgs()
+    {
+        assertThrows(() -> Lists.createFrom(null))
+            .isInstanceOf(IllegalArgumentException.class);
+        
+    }
     
     
 }

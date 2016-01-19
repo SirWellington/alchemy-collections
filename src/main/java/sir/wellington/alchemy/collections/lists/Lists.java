@@ -19,6 +19,7 @@ package sir.wellington.alchemy.collections.lists;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
 import tech.sirwellington.alchemy.annotations.arguments.Optional;
+import tech.sirwellington.alchemy.annotations.arguments.Required;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
@@ -65,6 +67,20 @@ public final class Lists
         return new ArrayList<>();
     }
 
+    public static <E> List<E> createFrom(@Required E first, @Optional E... rest)
+    {
+        checkThat(first)
+            .usingMessage("missing first value")
+            .is(notNull());
+
+        List<E> list = Lists.create();
+        
+        list.add(first);
+        list.addAll(Arrays.asList(rest));
+
+        return list;
+    }
+    
     /**
      * Creates a copy of the 
      * @param <E>
