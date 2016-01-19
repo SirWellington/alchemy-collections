@@ -16,6 +16,7 @@
 
 package sir.wellington.alchemy.collections.sets;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +26,10 @@ import org.slf4j.LoggerFactory;
 import sir.wellington.alchemy.collections.lists.Lists;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
 import tech.sirwellington.alchemy.annotations.arguments.Optional;
+import tech.sirwellington.alchemy.annotations.arguments.Required;
+
+import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
 /**
  *
@@ -44,6 +49,23 @@ public final class Sets
     public static <E> Set<E> create()
     {
         return new HashSet<>();
+    }
+   
+    public static <E> Set<E> createFrom(@Required E first, @Optional E... rest)
+    {
+        checkThat(first)
+            .usingMessage("first element is required")
+            .is(notNull());
+
+        Set<E> set = Sets.create();
+        set.add(first);
+
+        if (rest != null)
+        {
+            set.addAll(Arrays.asList(rest));
+        }
+
+        return set;
     }
 
     public static <E> Set<E> emptySet()

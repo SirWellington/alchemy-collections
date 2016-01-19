@@ -27,6 +27,7 @@ import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
 import tech.sirwellington.alchemy.test.junit.runners.DontRepeat;
 import tech.sirwellington.alchemy.test.junit.runners.Repeat;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
@@ -36,8 +37,10 @@ import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
 import static tech.sirwellington.alchemy.generator.CollectionGenerators.listOf;
 import static tech.sirwellington.alchemy.generator.StringGenerators.alphanumericString;
+import static tech.sirwellington.alchemy.generator.StringGenerators.strings;
 import static tech.sirwellington.alchemy.generator.StringGenerators.uuids;
 import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
 
@@ -215,4 +218,40 @@ public class SetsTest
         assertFalse(Sets.containTheSameElements(first, third));
     }
 
+   
+    @Test
+    public void testCreateFrom()
+    {
+        String first = one(strings());
+        List<String> rest = listOf(strings(), 20);
+        String[] restArray = rest.toArray(new String[0]);
+        
+        Set<String> expected = Sets.create();
+        expected.add(first);
+        expected.addAll(rest);
+        
+        Set<String> result = Sets.createFrom(first, restArray);
+        
+        assertThat(result, is(expected));
+    }
+    
+    @Test
+    public void testCreateFromWithOneValue()
+    {
+        String value = one(strings());
+        
+        Set<String> result = Sets.createFrom(value);
+        assertThat(result, not(empty()));
+        assertThat(result.size(), is(1));
+        assertThat(result, contains(value));
+    }
+    
+    @Test
+    public void testCreateFromWithBadArgs()
+    {
+        assertThrows(() -> Sets.createFrom(null))
+            .isInstanceOf(IllegalArgumentException.class);
+        
+    }
+    
 }
