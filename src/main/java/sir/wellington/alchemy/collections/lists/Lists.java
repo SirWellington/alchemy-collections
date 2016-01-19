@@ -76,7 +76,11 @@ public final class Lists
         List<E> list = Lists.create();
         
         list.add(first);
-        list.addAll(Arrays.asList(rest));
+        
+        if (rest != null)
+        {
+            list.addAll(Arrays.asList(rest));
+        }
 
         return list;
     }
