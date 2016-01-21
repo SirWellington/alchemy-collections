@@ -235,6 +235,18 @@ public class ListsTest
             .isInstanceOf(IllegalArgumentException.class);
         
     }
+
+    @Test
+    public void testNullToEmpty()
+    {
+        List<String> result = Lists.nullToEmpty(null);
+        assertThat(result, notNullValue());
+        assertThat(result, is(empty()));
+        
+        List<String> expected = listOf(generator);
+        result = Lists.nullToEmpty(expected);
+        assertThat(result, sameInstance(expected));
+    }
     
     
 }

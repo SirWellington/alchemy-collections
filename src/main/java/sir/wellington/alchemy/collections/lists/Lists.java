@@ -157,4 +157,9 @@ public final class Lists
         return result;
     }
     
+    
+    public static <E> List<E> nullToEmpty(@Optional List<E> list)
+    {
+        return list == null ? emptyList() : list;
+    }
 }
