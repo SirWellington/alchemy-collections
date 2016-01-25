@@ -22,6 +22,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import sir.wellington.alchemy.collections.lists.Lists;
 import tech.sirwellington.alchemy.generator.AlchemyGenerator;
 import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
 import tech.sirwellington.alchemy.test.junit.runners.DontRepeat;
@@ -252,6 +253,13 @@ public class SetsTest
         assertThrows(() -> Sets.createFrom(null))
             .isInstanceOf(IllegalArgumentException.class);
         
+    }
+    
+    @Test
+    public void testCreateCanAddElementsWhenEmpty()
+    {
+        Set<String> emptySet = Sets.copyOf(Lists.create());
+        emptySet.add(one(generator));
     }
     
 }
