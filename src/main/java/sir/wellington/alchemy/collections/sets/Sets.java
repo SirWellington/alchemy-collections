@@ -98,12 +98,13 @@ public final class Sets
 
     public static <E> Set<E> copyOf(Collection<E> collection)
     {
+        Set<E> set = create();
+
         if (collection == null)
         {
-            return emptySet();
+            return set;
         }
 
-        Set<E> set = create();
         set.addAll(collection);
 
         return set;
