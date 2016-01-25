@@ -68,6 +68,12 @@ public final class Sets
         return set;
     }
 
+    /**
+     * An empty set cannot be modified or have new elements added to it.
+     * 
+     * @param <E>
+     * @return 
+     */
     public static <E> Set<E> emptySet()
     {
         Set<E> set = create();
