@@ -261,5 +261,16 @@ public class SetsTest
         Set<String> emptySet = Sets.copyOf(Lists.create());
         emptySet.add(one(generator));
     }
-    
+
+    @Test
+    public void testOneOf()
+    {
+        String result = Sets.oneOf(set);
+        assertThat(result, isIn(set));
+        
+        Set<String> emptySet = Sets.emptySet();
+        assertThrows(() -> Sets.oneOf(emptySet))
+            .isInstanceOf(IllegalArgumentException.class);
+    }
+
 }

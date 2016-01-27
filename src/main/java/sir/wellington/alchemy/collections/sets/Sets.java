@@ -25,11 +25,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sir.wellington.alchemy.collections.lists.Lists;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
+import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
 import tech.sirwellington.alchemy.annotations.arguments.Optional;
 import tech.sirwellington.alchemy.annotations.arguments.Required;
 
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
+import static tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions.nonEmptySet;
 
 /**
  *
@@ -113,6 +115,13 @@ public final class Sets
     public static boolean isEmpty(Set<?> set)
     {
         return Lists.isEmpty(set);
+    }
+    
+    public static <E> E oneOf(@NonEmpty Set<E> set)
+    {
+        checkThat(set).is(nonEmptySet());
+        
+        return set.stream().findAny().get();
     }
     
     /**
