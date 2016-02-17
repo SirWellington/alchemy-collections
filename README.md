@@ -15,6 +15,39 @@ expect to perform on a java `Collection`.
 
 Because odds are, if you want to do it, someone else does too,
 
+
+# Download
+
+To use, simply add the following maven dependency.
+
+## Release
+
+```xml
+<dependency>
+	<groupId>tech.sirwellington.alchemy</groupId>
+	<artifactId>alchemy-collections</artifactId>
+	<version>1.0</version>
+</dependency>
+```
+
+## Snapshot
+
+>First add the Snapshot Repository
+```xml
+<repository>
+	<id>ossrh</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+</repository>
+```
+
+```xml
+<dependency>
+	<groupId>tech.sirwellington.alchemy</groupId>
+	<artifactId>alchemy-collections</artifactId>
+	<version>1.1-SNAPSHOT</version>
+</dependency>
+```
+
 # API
 
 ## Lists
@@ -61,38 +94,6 @@ Map<String, Object> merged = Maps.merge(first, second);
 ## Sets
 `sir.wellington.alchemy.collections.sets.Sets`
 
-
-# Download
-
-To use, simply add the following maven dependency.
-
-## Release
-
-```xml
-<dependency>
-	<groupId>tech.sirwellington.alchemy</groupId>
-	<artifactId>alchemy-collections</artifactId>
-	<version>1.0</version>
-</dependency>
-```
-
-## Snapshot
-
->First add the Snapshot Repository
-```xml
-<repository>
-	<id>ossrh</id>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-</repository>
-```
-
-```xml
-<dependency>
-	<groupId>tech.sirwellington.alchemy</groupId>
-	<artifactId>alchemy-collections</artifactId>
-	<version>1.1-SNAPSHOT</version>
-</dependency>
-```
 
 # [Javadocs](http://www.javadoc.io/doc/tech.sirwellington.alchemy/alchemy-collections/)
 
