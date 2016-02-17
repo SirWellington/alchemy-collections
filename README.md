@@ -67,7 +67,7 @@ Map<String, Object> merged = Maps.merge(first, second);
 To use, simply add the following maven dependency.
 
 ## Release
->NOTE: Not yet released
+
 ```xml
 <dependency>
 	<groupId>tech.sirwellington.alchemy</groupId>
