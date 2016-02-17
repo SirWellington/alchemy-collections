@@ -108,6 +108,8 @@ This project builds with maven. Just run a `mvn clean install` to compile and in
 
 # Release Notes
 
+## 1.1
+
 ## 1.0
 Initial Public Release.
 
