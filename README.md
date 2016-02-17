@@ -5,7 +5,7 @@ Alchemy Collections
 
 ## "Collect Yo'Self"
 
-[![Build Status](https://travis-ci.org/SirWellington/alchemy-collections.svg)](https://travis-ci.org/SirWellington/alchemy-collections)
+[![Build Status](http://jenkins.sirwellington.tech/view/Alchemy/job/Alchemy%20Collections/badge/icon)](http://jenkins.sirwellington.tech/view/Alchemy/job/Alchemy%20Collections/)
 
 
 # Purpose
