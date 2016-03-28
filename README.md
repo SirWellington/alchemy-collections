@@ -5,7 +5,7 @@ Alchemy Collections
 
 ## "Collect Yo'Self"
 
-[![Build Status](http://jenkins.sirwellington.tech/view/Alchemy/job/Alchemy%20Collections/badge/icon)](http://jenkins.sirwellington.tech/view/Alchemy/job/Alchemy%20Collections/)
+[![Build Status](http://jenkins.redroma.tech/view/Alchemy/job/Alchemy%20Collections/badge/icon)](http://jenkins.redroma.tech/view/Alchemy/job/Alchemy%20Collections/)
 
 
 # Purpose
