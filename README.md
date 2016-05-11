@@ -26,7 +26,7 @@ To use, simply add the following maven dependency.
 <dependency>
 	<groupId>tech.sirwellington.alchemy</groupId>
 	<artifactId>alchemy-collections</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ To use, simply add the following maven dependency.
 <dependency>
 	<groupId>tech.sirwellington.alchemy</groupId>
 	<artifactId>alchemy-collections</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ To use, simply add the following maven dependency.
 ## Lists
 `sir.wellington.alchemy.collections.lists.Lists`
 
-## Create
+### Create
 ```java
 List<User> users = Lists.create();
 ```
@@ -62,7 +62,7 @@ List<User> users = Lists.create();
 List<User> defensiveCopy = Lists.immutableCopyOf(users);
 ```
 
-## Combine
+### Combine
 ```java
 List<People> clique = Lists.combine(family, coworkers, enemies, neighbors);
 ```
@@ -77,14 +77,14 @@ String anyString = Lists.oneOf(strings);
 ## Maps
 `sir.wellington.alchemy.collections.maps.Maps`
 
-## Create
+### Create
 ```java
 Map<Integer, String> map = Maps.create();
 
 Map<Integer, String> defensiveCopy = Maps.immutableCopyOf(map);
 ```
 
-## Merge
+### Merge
 ```java
 Map<String, Object> first = ...;
 Map<String, Object> second = ...;
@@ -94,6 +94,24 @@ Map<String, Object> merged = Maps.merge(first, second);
 ## Sets
 `sir.wellington.alchemy.collections.sets.Sets`
 
+### Union
+A Union combines two or more sets into one.
+
+```java
+Set<String> first = Sets.createFrom("one", "two", "three");
+Set<String> second = Sets.createFrom("four", "crab");
+Set<String> union = Sets.unionOf(first, second);
+// {"one", "two", "three", "four", crab"}
+```
+
+### Intersection
+An Intersection finds the elements in common between two or more sets.
+```java
+Set<String> first = Sets.createFrom("You", "Are", "What", "You", "Create");
+Set<String> second = Sets.createFrom("What", "You", "Create", "Creates" "You");
+Set<String> intersection = Sets.intersectionOf(first, second);
+//{ "You", "Create"}
+```
 
 # [Javadocs](http://www.javadoc.io/doc/tech.sirwellington.alchemy/alchemy-collections/)
 
