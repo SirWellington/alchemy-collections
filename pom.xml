@@ -16,8 +16,8 @@
     <name>${project.artifactId}</name>
     <url>https://github.com/SirWellington/alchemy-collections</url>
     <description>
+        Collect Yo'Self!
         Part of the Alchemy Collection.
-
     </description>
    
     <issueManagement>
