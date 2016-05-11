@@ -5,19 +5,19 @@
     <parent>
         <groupId>tech.sirwellington.alchemy</groupId>
         <artifactId>alchemy</artifactId>
-        <version>1.4</version>
+        <version>1.5</version>
     </parent>
 
     <artifactId>alchemy-collections</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
 
     <name>${project.artifactId}</name>
     <url>https://github.com/SirWellington/alchemy-collections</url>
     <description>
+        Collect Yo'Self!
         Part of the Alchemy Collection.
-
     </description>
    
     <issueManagement>

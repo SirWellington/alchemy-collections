@@ -154,6 +154,62 @@ public class SetsTest
         assertFalse(Sets.isEmpty(set));
     }
 
+    @Test
+    public void testIntersectionOfWithNoParameters()
+    {
+        Set<Object> intersection = Sets.intersectionOf(null);
+        assertThat(intersection, notNullValue());
+        assertThat(intersection, is(empty()));
+    }
+
+    @Test
+    public void testIntersectionOfWhenEqual()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.copyOf(first);
+        
+        Set<String> intersection = Sets.intersectionOf(first, second);
+        assertThat(intersection, is(first));
+        assertThat(intersection, is(second));
+    }
+
+    @Test
+    public void testIntersectionOfWhenDiffered()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.toSet(listOf(generator));
+        second.addAll(first);
+        
+        Set<String> expected = first;
+
+        Set<String> intersection = Sets.intersectionOf(first, second);
+        assertThat(intersection, is(expected));
+    }
+    
+    @Test
+    public void testIntersectionOfWhenCompletelyDiffered()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.toSet(listOf(generator));
+        Set<String> expected = Sets.emptySet();
+        
+        Set<String> intersection = Sets.intersectionOf(first, second);
+        assertThat(intersection, is(expected));
+    }
+
+    @Test
+    public void testIntersectionOfWithEmptySet()
+    {
+        Set<String> first = Sets.toSet(listOf(generator));
+        Set<String> second = Sets.toSet(listOf(generator));
+        Set<String> emptySet = Sets.emptySet();
+        Set<String> expected = emptySet;
+        
+        Set<String> intersection = Sets.intersectionOf(first, emptySet, second);
+        assertThat(intersection, is(expected));
+    }
+    
+    
     @DontRepeat
     @Test
     public void testUnionOfWithNoParameters()
@@ -180,9 +236,10 @@ public class SetsTest
         Set<String> first = Sets.toSet(listOf(generator));
         Set<String> second = Sets.toSet(listOf(generator));
         second.addAll(first);
+        Set<String> expected = second;
         
         Set<String> union = Sets.unionOf(first, second);
-        assertThat(union, is(first));
+        assertThat(union, is(expected));
     }
     
     @Test
@@ -190,9 +247,11 @@ public class SetsTest
     {
         Set<String> first = Sets.toSet(listOf(generator));
         Set<String> second = Sets.toSet(listOf(uuids));
+        Set<String> expected = Sets.copyOf(first);
+        expected.addAll(second);
         
         Set<String> union = Sets.unionOf(first, second);
-        assertThat(union, is(empty()));
+        assertThat(union, is(expected));
     }
     
     @Test
