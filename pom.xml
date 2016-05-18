@@ -86,7 +86,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>alchemy-annotations</artifactId>
-            <version>1.4</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
 
 

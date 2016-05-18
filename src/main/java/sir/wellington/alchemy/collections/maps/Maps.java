@@ -23,11 +23,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.sirwellington.alchemy.annotations.access.Internal;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
+import tech.sirwellington.alchemy.annotations.concurrency.Immutable;
 import tech.sirwellington.alchemy.annotations.concurrency.ThreadSafe;
 import tech.sirwellington.alchemy.annotations.concurrency.ThreadUnsafe;
 
-import static java.util.Collections.EMPTY_MAP;
 import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
@@ -96,11 +97,30 @@ public final class Maps
         return result;
     }
 
+    /**
+     * Useful for ensuring you have an object to work with, even if its null.
+     * 
+     * @param <K>
+     * @param <V>
+     * @param map
+     * 
+     * @return An empty map if {@code map == null}, otherwise returns the map.
+     */
     public static <K, V> Map<K, V> nullToEmpty(Map<K, V> map)
     {
         return isEmpty(map) ? EMPTY_MAP : map;
     }
 
+    /**
+     * Creates a shallow copy of the specified map, disallowing modification operations
+     * like {@linkplain Map#put(java.lang.Object, java.lang.Object) Put}.
+     * 
+     * @param <K>
+     * @param <V>
+     * @param map
+     * @return
+     * @throws IllegalArgumentException 
+     */
     public static <K, V> Map<K, V> immutableCopyOf(Map<K, V> map) throws IllegalArgumentException
     {
         if (map == null)
@@ -112,11 +132,28 @@ public final class Maps
         return Collections.unmodifiableMap(copy);
     }
 
+    /**
+     * Alias for {@link #copyOf(java.util.Map, java.util.function.Supplier) }.
+     * 
+     * @param <K>
+     * @param <V>
+     * @param map
+     * @return 
+     */
     public static <K, V> Map<K, V> mutableCopyOf(Map<K, V> map)
     {
         return copyOf(map, () -> new HashMap<>());
     }
 
+    /**
+     * Creates a shallow copy of map that is mutable.
+     * 
+     * @param <K>
+     * @param <V>
+     * @param map
+     * @param mapSupplier
+     * @return 
+     */
     public static <K, V> Map<K, V> copyOf(Map<K, V> map, Supplier<Map<K, V>> mapSupplier)
     {
 
@@ -135,6 +172,25 @@ public final class Maps
         }
 
         return result;
+    }
+
+    /**
+     * This Singleton map is completely empty and immutable.
+     */
+    @Internal
+    @Immutable
+    private static final Map EMPTY_MAP = immutableCopyOf(create());
+
+    /**
+     * Returns an Empty Map that is not designed to be mutable.
+     * @param <K>
+     * @param <V>
+     * @return 
+     */
+    @Immutable
+    public static <K, V> Map<K, V> emptyMap()
+    {
+        return EMPTY_MAP;
     }
 
 }

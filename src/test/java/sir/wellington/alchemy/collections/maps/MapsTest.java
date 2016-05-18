@@ -174,4 +174,21 @@ public class MapsTest
 
     }
 
+    @Test
+    public void testEmptyMap()
+    {
+        Map<String, String> emptyMap = Maps.emptyMap();
+        
+        assertThat(emptyMap, notNullValue());
+        assertThat(emptyMap.isEmpty(), is(true));
+        
+        String key = generator.get();
+        String value = generator.get();
+        assertThrows(() -> emptyMap.clear());
+        assertThrows(() -> emptyMap.put(key, value));
+        assertThat(emptyMap.isEmpty(), is(true));
+        assertThrows(() -> emptyMap.remove(key));
+        
+    }
+
 }
