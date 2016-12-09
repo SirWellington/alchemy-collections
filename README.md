@@ -6,7 +6,7 @@ Alchemy Collections
 ## "Collect Yo'Self"
 
 [![Build Status](http://jenkins.redroma.tech/view/Alchemy/job/Alchemy%20Collections/badge/icon)](http://jenkins.redroma.tech/view/Alchemy/job/Alchemy%20Collections/)
-
+![Maven Central Version](http://img.shields.io/maven-central/v/tech.sirwellington.alchemy/alchemy-collections.svg)
 
 # Purpose
 Part of the [Alchemy Collection](https://github.com/SirWellington/alchemy),
