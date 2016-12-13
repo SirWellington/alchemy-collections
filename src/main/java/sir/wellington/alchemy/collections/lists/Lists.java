@@ -50,9 +50,25 @@ public final class Lists
         throw new IllegalAccessException("cannot instantiate this class");
     }
     
+    /**
+     * Determines whether the specified collection is empty or not.
+     * @param list
+     * @return 
+     */
     public static boolean isEmpty(@Optional Collection<?> list)
     {
         return list == null || list.isEmpty();
+    }
+    
+    /**
+     * Determines whether the specified collection is not empty.
+     * 
+     * @param list
+     * @return 
+     */
+    public static boolean notEmpty(@Optional Collection<?> list)
+    {
+        return !isEmpty(list);
     }
 
     /**

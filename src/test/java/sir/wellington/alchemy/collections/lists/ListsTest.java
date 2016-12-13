@@ -173,6 +173,17 @@ public class ListsTest
         assertThat(isEmpty, is(false));
         
     }
+   
+    @Test
+    public void testNotEmpty()
+    {
+        assertFalse(Lists.notEmpty(Lists.emptyList()));
+        assertFalse(Lists.notEmpty(null));
+        
+        List<String> strings = listOf(generator);
+        assertTrue(Lists.notEmpty(strings));
+        
+    }
     
     @Test
     public void testCombine()
@@ -247,6 +258,5 @@ public class ListsTest
         result = Lists.nullToEmpty(expected);
         assertThat(result, sameInstance(expected));
     }
-    
-    
+
 }
