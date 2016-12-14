@@ -267,6 +267,9 @@ public class ListsTest
         List<String> copy = Lists.immutableCopyOf(list);
         assertThat(copy, is(list));
         assertThat(copy.hashCode(), is(list.hashCode()));
+        
+        assertThrows(() -> copy.clear());
+        assertThrows(() -> copy.add(Lists.oneOf(list)));
     }
     
     @Test
