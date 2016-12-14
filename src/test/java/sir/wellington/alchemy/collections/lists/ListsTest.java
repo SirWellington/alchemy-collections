@@ -259,4 +259,24 @@ public class ListsTest
         assertThat(result, sameInstance(expected));
     }
 
+    @Test
+    public void testImmutableCopyOf()
+    {
+        List<String> list = listOf(generator);
+        
+        List<String> copy = Lists.immutableCopyOf(list);
+        assertThat(copy, is(list));
+        assertThat(copy.hashCode(), is(list.hashCode()));
+    }
+    
+    @Test
+    public void testImmutableCopyOfWithBadArgs() throws Exception
+    {
+        assertThrows(() -> Lists.immutableCopyOf(Lists.emptyList()))
+            .isInstanceOf(IllegalArgumentException.class);
+        
+        assertThrows(() -> Lists.immutableCopyOf(null))
+            .isInstanceOf(IllegalArgumentException.class);
+    }
+
 }

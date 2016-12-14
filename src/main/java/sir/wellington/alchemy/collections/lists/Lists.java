@@ -173,9 +173,15 @@ public final class Lists
         return result;
     }
     
-    
     public static <E> List<E> nullToEmpty(@Optional List<E> list)
     {
         return list == null ? emptyList() : list;
+    }
+    
+    public static <E> List<E> immutableCopyOf(@NonEmpty List<E> list)
+    {
+        checkThat(list).is(nonEmptyList());
+        
+        return Collections.unmodifiableList(list);
     }
 }
