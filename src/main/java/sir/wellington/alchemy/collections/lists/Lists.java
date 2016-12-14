@@ -180,7 +180,10 @@ public final class Lists
     
     public static <E> List<E> immutableCopyOf(@NonEmpty List<E> list)
     {
-        checkThat(list).is(nonEmptyList());
+        if (isEmpty(list))
+        {
+            return emptyList();
+        }
         
         return Collections.unmodifiableList(list);
     }
