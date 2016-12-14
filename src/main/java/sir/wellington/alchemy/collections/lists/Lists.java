@@ -178,7 +178,7 @@ public final class Lists
         return list == null ? emptyList() : list;
     }
     
-    public static <E> List<E> immutableCopyOf(@NonEmpty List<E> list)
+    public static <E> List<E> immutableCopyOf(@Optional List<E> list)
     {
         if (isEmpty(list))
         {
