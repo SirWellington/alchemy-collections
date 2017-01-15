@@ -287,4 +287,43 @@ public class ListsTest
 
     }
 
+    @Test
+    public void testFirst()
+    {
+        List<String> list = listOf(generator);
+        String expected = list.get(0);
+        
+        String result = Lists.first(list);
+        assertThat(result, is(expected));
+    }
+    
+    @DontRepeat
+    @Test
+    public void testFirstWithBadArgs() throws Exception
+    {
+        assertThrows(() -> Lists.first(null)).isInstanceOf(IllegalArgumentException.class);
+        assertThrows(() -> Lists.first(Lists.emptyList())).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testLast()
+    {
+        List<String> list = listOf(generator);
+        String expected = one(generator);
+        list.add(expected);
+        
+        String result = Lists.last(list);
+        assertThat(result, is(expected));
+        
+        
+    }
+    
+    @DontRepeat
+    @Test
+    public void testLastWithBadArgs() throws Exception
+    {
+        assertThrows(() -> Lists.last(null)).isInstanceOf(IllegalArgumentException.class);
+        assertThrows(() -> Lists.last(Lists.emptyList())).isInstanceOf(IllegalArgumentException.class);
+    }
+
 }

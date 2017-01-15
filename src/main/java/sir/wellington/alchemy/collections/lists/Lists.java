@@ -187,4 +187,39 @@ public final class Lists
         
         return Collections.unmodifiableList(list);
     }
+    
+    /**
+     * Gets the first element in the list.
+     * 
+     * @param <E>
+     * @param list Cannot be null or empty;
+     * @return
+     * @throws IllegalArgumentException If the list is empty
+     */
+    public static <E> E first(@NonEmpty List<E> list) throws IllegalArgumentException
+    {
+        checkThat(list)
+            .is(notNull())
+            .is(nonEmptyList());
+        
+        return list.get(0);
+    }
+    
+    /**
+     * Gets the last element in the list.
+     * 
+     * @param <E>
+     * @param list Cannot be null or empty.
+     * @return
+     * @throws IllegalArgumentException If the list is empty
+     */
+    public static <E> E last(@NonEmpty List<E> list) throws IllegalArgumentException
+    {
+        checkThat(list)
+            .is(notNull())
+            .is(nonEmptyList());
+        
+        int lastIndex = list.size() - 1;
+        return list.get(lastIndex);
+    }
 }
