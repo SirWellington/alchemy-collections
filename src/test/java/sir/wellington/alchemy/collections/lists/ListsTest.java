@@ -326,4 +326,77 @@ public class ListsTest
         assertThrows(() -> Lists.last(Lists.emptyList())).isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    public void testRemoveFirst()
+    {
+        List<String> list = listOf(generator);
+        int beginningSize = list.size();
+        
+        String expected = one(generator);
+        list.add(0, expected);
+        
+        assertThat(list.size(), is(beginningSize + 1));
+        
+        String result = Lists.removeFirst(list);
+        assertThat(result, is(expected));
+        assertThat(list.size(), is(beginningSize));
+        assertThat(list, not(hasItem(expected)));
+    }
+    
+    @DontRepeat
+    @Test
+    public void testRemoveFirstWithOneElement() throws Exception
+    {
+        String element = one(generator);
+        List<String> list = Lists.createFrom(element);
+        
+        String result = Lists.removeFirst(list);
+        assertThat(result, is(element));
+        assertThat(list, is(empty()));
+    }
+    
+    @DontRepeat
+    @Test
+    public void testRemoveFirstWithBadArgs() throws Exception
+    {
+        assertThrows(() -> Lists.removeFirst(null)).isInstanceOf(IllegalArgumentException.class);
+        assertThrows(() -> Lists.removeFirst(Lists.emptyList())).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testRemoveLast()
+    {
+        List<String> list = listOf(generator);
+        int beginnningSize = list.size();
+        
+        String expected = one(generator);
+        list.add(expected);
+        
+        String result = Lists.removeLast(list);
+        assertThat(result, is(expected));
+        assertThat(list.size(), is(beginnningSize));
+        assertThat(list, not(hasItem(expected)));
+    }
+    
+    @DontRepeat
+    @Test
+    public void testRemoveLastWithOneElement() throws Exception
+    {
+        String element = one(generator);
+        List<String> list = Lists.createFrom(element);
+        
+        String result = Lists.removeLast(list);
+        assertThat(result, is(element));
+        assertThat(list, is(empty()));
+        
+    }
+    
+    @DontRepeat
+    @Test
+    public void testRemoveLastWithBadArgs() throws Exception
+    {
+        assertThrows(() -> Lists.removeLast(null)).isInstanceOf(IllegalArgumentException.class);
+        assertThrows(() -> Lists.removeLast(Lists.emptyList())).isInstanceOf(IllegalArgumentException.class);
+    }
+
 }

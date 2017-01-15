@@ -222,4 +222,39 @@ public final class Lists
         int lastIndex = list.size() - 1;
         return list.get(lastIndex);
     }
+    
+    /**
+     * Removes and retrieves the first element in the list.
+     * 
+     * @param <E>
+     * @param list Cannot be null or empty.
+     * @return
+     * @throws IllegalArgumentException If the list is empty.
+     */
+    public static <E> E removeFirst(@NonEmpty List<E> list) throws IllegalArgumentException
+    {
+        checkThat(list)
+            .is(notNull())
+            .is(nonEmptyList());
+        
+        return list.remove(0);
+    }
+
+    /**
+     * Removes and retrieves the last element in the list.
+     * 
+     * @param <E>
+     * @param list Cannot be null or empty.
+     * @return
+     * @throws IllegalArgumentException If the list is empty.
+     */
+    public static <E> E removeLast(@NonEmpty List<E> list) throws IllegalArgumentException
+    {
+        checkThat(list)
+            .is(notNull())
+            .is(nonEmptyList());
+
+        int lastIndex = list.size() - 1;
+        return list.remove(lastIndex);
+    }
 }
