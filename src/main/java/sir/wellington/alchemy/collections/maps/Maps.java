@@ -15,21 +15,16 @@
  */
 package sir.wellington.alchemy.collections.maps;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Supplier;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.Internal;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
-import tech.sirwellington.alchemy.annotations.concurrency.Immutable;
-import tech.sirwellington.alchemy.annotations.concurrency.ThreadSafe;
-import tech.sirwellington.alchemy.annotations.concurrency.ThreadUnsafe;
+import tech.sirwellington.alchemy.annotations.concurrency.*;
 
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
+import static tech.sirwellington.alchemy.arguments.Arguments.*;
 import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
 
 /**
@@ -88,10 +83,10 @@ public final class Maps
 
         if (others != null)
         {
-            Arrays.asList(others)
-                    .stream()
-                    .filter(map -> !isEmpty(map))
-                    .forEach(map -> result.putAll(map));
+            for (Map<K, V> map : Arrays.asList(others))
+            {
+                result.putAll(map);
+            }
         }
 
         return result;
@@ -108,7 +103,7 @@ public final class Maps
      */
     public static <K, V> Map<K, V> nullToEmpty(Map<K, V> map)
     {
-        return isEmpty(map) ? EMPTY_MAP : map;
+        return isEmpty(map) ? Maps.<K, V>emptyMap() : map;
     }
 
     /**
@@ -133,7 +128,7 @@ public final class Maps
     }
 
     /**
-     * Alias for {@link #copyOf(java.util.Map, java.util.function.Supplier) }.
+     * Alias for {@link #copyOf(java.util.Map) }.
      *
      * @param <K>
      * @param <V>
@@ -142,7 +137,7 @@ public final class Maps
      */
     public static <K, V> Map<K, V> mutableCopyOf(Map<K, V> map)
     {
-        return copyOf(map, () -> new HashMap<>());
+        return copyOf(map);
     }
 
     /**
@@ -151,20 +146,11 @@ public final class Maps
      * @param <K>
      * @param <V>
      * @param map
-     * @param mapSupplier
      * @return
      */
-    public static <K, V> Map<K, V> copyOf(Map<K, V> map, Supplier<Map<K, V>> mapSupplier)
+    public static <K, V> Map<K, V> copyOf(Map<K, V> map)
     {
-
-        checkThat(mapSupplier)
-                .usingMessage("map supplier cannot be null")
-                .is(notNull());
-
-        Map<K, V> result = mapSupplier.get();
-        checkThat(result)
-                .usingMessage("supplier returned a null map")
-                .is(notNull());
+        Map<K, V> result = create();
 
         if (!isEmpty(map))
         {
@@ -172,6 +158,11 @@ public final class Maps
         }
 
         return result;
+    }
+
+    private static <K, V> void checkNotNull(Object object, String message)
+    {
+        checkThat(object).usingMessage(message).is(notNull());
     }
 
     /**

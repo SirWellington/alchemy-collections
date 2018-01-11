@@ -18,22 +18,17 @@
 package sir.wellington.alchemy.collections.lists;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
-import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
+import tech.sirwellington.alchemy.annotations.arguments.*;
 import tech.sirwellington.alchemy.annotations.arguments.Optional;
-import tech.sirwellington.alchemy.annotations.arguments.Required;
+import tech.sirwellington.alchemy.arguments.assertions.Assertions;
+import tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions;
 
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
-import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
-import static tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions.nonEmptyList;
+import static tech.sirwellington.alchemy.arguments.Arguments.*;
 
 /**
  * Operations built around {@linkplain List Lists}.
@@ -87,7 +82,7 @@ public final class Lists
     {
         checkThat(first)
             .usingMessage("missing first value")
-            .is(notNull());
+            .is(Assertions.<E>notNull());
 
         List<E> list = Lists.create();
 
@@ -139,10 +134,7 @@ public final class Lists
 
     public static <E> E oneOf(@NonEmpty List<E> list)
     {
-        checkThat(list)
-            .usingMessage("List cannot be empty")
-            .is(notNull())
-            .is(nonEmptyList());
+        checkListNotEmpty(list);
 
         Random random = new Random();
         int index = random.nextInt(list.size());
@@ -175,7 +167,7 @@ public final class Lists
 
     public static <E> List<E> nullToEmpty(@Optional List<E> list)
     {
-        return list == null ? emptyList() : list;
+        return list == null ? Lists.<E>emptyList() : list;
     }
 
     public static <E> List<E> immutableCopyOf(@Optional List<E> list)
@@ -198,12 +190,11 @@ public final class Lists
      */
     public static <E> E first(@NonEmpty List<E> list) throws IllegalArgumentException
     {
-        checkThat(list)
-            .is(notNull())
-            .is(nonEmptyList());
+        checkListNotEmpty(list);
 
         return list.get(0);
     }
+
 
     /**
      * Gets the last element in the list.
@@ -215,9 +206,7 @@ public final class Lists
      */
     public static <E> E last(@NonEmpty List<E> list) throws IllegalArgumentException
     {
-        checkThat(list)
-            .is(notNull())
-            .is(nonEmptyList());
+        checkListNotEmpty(list);
 
         int lastIndex = list.size() - 1;
         return list.get(lastIndex);
@@ -233,9 +222,7 @@ public final class Lists
      */
     public static <E> E removeFirst(@NonEmpty List<E> list) throws IllegalArgumentException
     {
-        checkThat(list)
-            .is(notNull())
-            .is(nonEmptyList());
+        checkListNotEmpty(list);
 
         return list.remove(0);
     }
@@ -250,11 +237,19 @@ public final class Lists
      */
     public static <E> E removeLast(@NonEmpty List<E> list) throws IllegalArgumentException
     {
-        checkThat(list)
-            .is(notNull())
-            .is(nonEmptyList());
+        checkListNotEmpty(list);
 
         int lastIndex = list.size() - 1;
         return list.remove(lastIndex);
+    }
+
+
+    static <E> void checkListNotEmpty(@NonEmpty List<E> list)
+    {
+        checkThat(list)
+                .usingMessage("list cannot be null")
+                .is(Assertions.<List<E>>notNull())
+                .usingMessage("list cannot be empty")
+                .is(CollectionAssertions.<E>nonEmptyList());
     }
 }

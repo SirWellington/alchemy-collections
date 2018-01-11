@@ -16,22 +16,18 @@
 
 package sir.wellington.alchemy.collections.sets;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sir.wellington.alchemy.collections.lists.Lists;
 import tech.sirwellington.alchemy.annotations.access.NonInstantiable;
-import tech.sirwellington.alchemy.annotations.arguments.NonEmpty;
+import tech.sirwellington.alchemy.annotations.arguments.*;
 import tech.sirwellington.alchemy.annotations.arguments.Optional;
-import tech.sirwellington.alchemy.annotations.arguments.Required;
+import tech.sirwellington.alchemy.arguments.assertions.Assertions;
+import tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions;
 
-import static tech.sirwellington.alchemy.arguments.Arguments.checkThat;
-import static tech.sirwellington.alchemy.arguments.assertions.Assertions.notNull;
-import static tech.sirwellington.alchemy.arguments.assertions.CollectionAssertions.nonEmptySet;
+import static tech.sirwellington.alchemy.arguments.Arguments.*;
 
 /**
  *
@@ -57,7 +53,7 @@ public final class Sets
     {
         checkThat(first)
             .usingMessage("first element is required")
-            .is(notNull());
+            .is(Assertions.<E>notNull());
 
         Set<E> set = Sets.create();
         set.add(first);
@@ -84,7 +80,7 @@ public final class Sets
 
     public static <E> Set<E> nullToEmpty(Set<E> set)
     {
-        return set == null ? emptySet() : set;
+        return set == null ? Sets.<E>emptySet() : set;
     }
 
     /**
@@ -119,9 +115,10 @@ public final class Sets
 
     public static <E> E oneOf(@NonEmpty Set<E> set)
     {
-        checkThat(set).is(nonEmptySet());
+        checkThat(set).is(CollectionAssertions.<E>nonEmptySet());
 
-        return set.stream().findAny().get();
+        List<E> list = Lists.copy(set);
+        return Lists.oneOf(list);
     }
 
     /**

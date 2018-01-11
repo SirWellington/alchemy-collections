@@ -17,22 +17,20 @@
 package sir.wellington.alchemy.collections.maps;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import tech.sirwellington.alchemy.generator.AlchemyGenerator;
-import tech.sirwellington.alchemy.test.junit.runners.AlchemyTestRunner;
-import tech.sirwellington.alchemy.test.junit.runners.DontRepeat;
-import tech.sirwellington.alchemy.test.junit.runners.Repeat;
+import tech.sirwellington.alchemy.test.junit.runners.*;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static tech.sirwellington.alchemy.generator.AlchemyGenerator.one;
+import static org.junit.Assert.assertThat;
+import static tech.sirwellington.alchemy.generator.AlchemyGenerator.Get.one;
 import static tech.sirwellington.alchemy.generator.CollectionGenerators.mapOf;
-import static tech.sirwellington.alchemy.generator.StringGenerators.alphabeticString;
-import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.assertThrows;
+import static tech.sirwellington.alchemy.generator.StringGenerators.alphabeticStrings;
+import static tech.sirwellington.alchemy.test.junit.ThrowableAssertion.*;
 
 /**
  *
@@ -49,7 +47,7 @@ public class MapsTest
     @Before
     public void setUp()
     {
-        generator = alphabeticString();
+        generator = alphabeticStrings();
         map = mapOf(generator, generator, 10);
     }
 
@@ -167,10 +165,9 @@ public class MapsTest
     @Test
     public void testCopyOf()
     {
-        Map<String, String> result = Maps.copyOf(map, () -> new LinkedHashMap<>());
+        Map<String, String> result = Maps.copyOf(map);
         assertThat(result, notNullValue());
         assertThat(result, is(map));
-        assertThat(result, is(instanceOf(LinkedHashMap.class)));
 
     }
 
