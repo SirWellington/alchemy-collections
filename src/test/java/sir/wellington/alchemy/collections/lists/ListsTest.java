@@ -1,11 +1,11 @@
 
 /*
- * Copyright 2015 Aroma Tech.
+ * Copyright © 2018. Sir Wellington.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
  *
+ * You may obtain a copy of the License at
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -292,11 +292,11 @@ public class ListsTest
     {
         List<String> list = listOf(generator);
         String expected = list.get(0);
-        
+
         String result = Lists.first(list);
         assertThat(result, is(expected));
     }
-    
+
     @DontRepeat
     @Test
     public void testFirstWithBadArgs() throws Exception
@@ -311,13 +311,13 @@ public class ListsTest
         List<String> list = listOf(generator);
         String expected = one(generator);
         list.add(expected);
-        
+
         String result = Lists.last(list);
         assertThat(result, is(expected));
-        
-        
+
+
     }
-    
+
     @DontRepeat
     @Test
     public void testLastWithBadArgs() throws Exception
@@ -331,30 +331,30 @@ public class ListsTest
     {
         List<String> list = listOf(generator);
         int beginningSize = list.size();
-        
+
         String expected = one(generator);
         list.add(0, expected);
-        
+
         assertThat(list.size(), is(beginningSize + 1));
-        
+
         String result = Lists.removeFirst(list);
         assertThat(result, is(expected));
         assertThat(list.size(), is(beginningSize));
         assertThat(list, not(hasItem(expected)));
     }
-    
+
     @DontRepeat
     @Test
     public void testRemoveFirstWithOneElement() throws Exception
     {
         String element = one(generator);
         List<String> list = Lists.createFrom(element);
-        
+
         String result = Lists.removeFirst(list);
         assertThat(result, is(element));
         assertThat(list, is(empty()));
     }
-    
+
     @DontRepeat
     @Test
     public void testRemoveFirstWithBadArgs() throws Exception
@@ -368,29 +368,29 @@ public class ListsTest
     {
         List<String> list = listOf(generator);
         int beginnningSize = list.size();
-        
+
         String expected = one(generator);
         list.add(expected);
-        
+
         String result = Lists.removeLast(list);
         assertThat(result, is(expected));
         assertThat(list.size(), is(beginnningSize));
         assertThat(list, not(hasItem(expected)));
     }
-    
+
     @DontRepeat
     @Test
     public void testRemoveLastWithOneElement() throws Exception
     {
         String element = one(generator);
         List<String> list = Lists.createFrom(element);
-        
+
         String result = Lists.removeLast(list);
         assertThat(result, is(element));
         assertThat(list, is(empty()));
-        
+
     }
-    
+
     @DontRepeat
     @Test
     public void testRemoveLastWithBadArgs() throws Exception

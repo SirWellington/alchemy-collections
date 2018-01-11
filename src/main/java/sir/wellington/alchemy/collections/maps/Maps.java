@@ -1,10 +1,10 @@
 /*
- * Copyright 2015 Sir Wellington.
+ * Copyright © 2018. Sir Wellington.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
  *
+ * You may obtain a copy of the License at
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -49,10 +49,10 @@ public final class Maps
 
     /**
      * Creates a new {@link HashMap}.
-     * 
+     *
      * @param <K>
      * @param <V>
-     * @return 
+     * @return
      */
     @ThreadUnsafe
     public static <K, V> Map<K, V> create()
@@ -64,7 +64,7 @@ public final class Maps
      * Creates a {@link ThreadSafe} {@link ConcurrentHashMap}.
      * @param <K>
      * @param <V>
-     * @return 
+     * @return
      */
     @ThreadSafe
     public static <K, V> Map<K, V> createSynchronized()
@@ -99,11 +99,11 @@ public final class Maps
 
     /**
      * Useful for ensuring you have an object to work with, even if its null.
-     * 
+     *
      * @param <K>
      * @param <V>
      * @param map
-     * 
+     *
      * @return An empty map if {@code map == null}, otherwise returns the map.
      */
     public static <K, V> Map<K, V> nullToEmpty(Map<K, V> map)
@@ -114,12 +114,12 @@ public final class Maps
     /**
      * Creates a shallow copy of the specified map, disallowing modification operations
      * like {@linkplain Map#put(java.lang.Object, java.lang.Object) Put}.
-     * 
+     *
      * @param <K>
      * @param <V>
      * @param map
      * @return
-     * @throws IllegalArgumentException 
+     * @throws IllegalArgumentException
      */
     public static <K, V> Map<K, V> immutableCopyOf(Map<K, V> map) throws IllegalArgumentException
     {
@@ -134,11 +134,11 @@ public final class Maps
 
     /**
      * Alias for {@link #copyOf(java.util.Map, java.util.function.Supplier) }.
-     * 
+     *
      * @param <K>
      * @param <V>
      * @param map
-     * @return 
+     * @return
      */
     public static <K, V> Map<K, V> mutableCopyOf(Map<K, V> map)
     {
@@ -147,12 +147,12 @@ public final class Maps
 
     /**
      * Creates a shallow copy of map that is mutable.
-     * 
+     *
      * @param <K>
      * @param <V>
      * @param map
      * @param mapSupplier
-     * @return 
+     * @return
      */
     public static <K, V> Map<K, V> copyOf(Map<K, V> map, Supplier<Map<K, V>> mapSupplier)
     {
@@ -185,7 +185,7 @@ public final class Maps
      * Returns an Empty Map that is not designed to be mutable.
      * @param <K>
      * @param <V>
-     * @return 
+     * @return
      */
     @Immutable
     public static <K, V> Map<K, V> emptyMap()

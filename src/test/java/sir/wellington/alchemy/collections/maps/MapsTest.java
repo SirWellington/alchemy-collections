@@ -1,10 +1,10 @@
 /*
- * Copyright 2015 Aroma Tech.
+ * Copyright © 2018. Sir Wellington.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
  *
+ * You may obtain a copy of the License at
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -59,7 +59,7 @@ public class MapsTest
     {
         assertThrows(() -> new Maps())
             .isInstanceOf(IllegalAccessException.class);
-        
+
         assertThrows(() -> Maps.class.newInstance())
             .isInstanceOf(IllegalAccessException.class);
     }
@@ -140,7 +140,7 @@ public class MapsTest
         assertThat(result, notNullValue());
         assertThat(result.isEmpty(), is(true));
     }
-    
+
     @Test
     public void testMutableCopyOf()
     {
@@ -154,7 +154,7 @@ public class MapsTest
 
         assertThat(map.isEmpty(), is(false));
     }
-    
+
     @DontRepeat
     @Test
     public void testMutableCopyOfNull()
@@ -178,17 +178,17 @@ public class MapsTest
     public void testEmptyMap()
     {
         Map<String, String> emptyMap = Maps.emptyMap();
-        
+
         assertThat(emptyMap, notNullValue());
         assertThat(emptyMap.isEmpty(), is(true));
-        
+
         String key = generator.get();
         String value = generator.get();
         assertThrows(() -> emptyMap.clear());
         assertThrows(() -> emptyMap.put(key, value));
         assertThat(emptyMap.isEmpty(), is(true));
         assertThrows(() -> emptyMap.remove(key));
-        
+
     }
 
 }
