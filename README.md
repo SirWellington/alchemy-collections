@@ -5,7 +5,7 @@ Alchemy Collections
 
 ## "Collect Yo'Self"
 
-[![Build Status](http://jenkins.redroma.tech/view/Alchemy/job/Alchemy%20Collections/badge/icon)](http://jenkins.redroma.tech/view/Alchemy/job/Alchemy%20Collections/)
+![Maven Build](https://github.com/SirWellington/alchemy-collections/actions/workflows/maven-build.yml/badge.svg)
 ![Maven Central Version](http://img.shields.io/maven-central/v/tech.sirwellington.alchemy/alchemy-collections.svg)
 
 # Purpose
@@ -59,18 +59,18 @@ List<User> users = Lists.create();
 ```
 
 ```java
-List<User> defensiveCopy = Lists.immutableCopyOf(users);
+var defensiveCopy = Lists.immutableCopyOf(users);
 ```
 
 ### Combine
 ```java
-List<People> clique = Lists.combine(family, coworkers, enemies, neighbors);
+var clique = Lists.combine(family, coworkers, enemies, neighbors);
 ```
 
 ### Any String
 ```java
 List<String> strings = ...;
-String anyString = Lists.oneOf(strings);
+var anyString = Lists.oneOf(strings);
 ```
 
 
@@ -81,7 +81,7 @@ String anyString = Lists.oneOf(strings);
 ```java
 Map<Integer, String> map = Maps.create();
 
-Map<Integer, String> defensiveCopy = Maps.immutableCopyOf(map);
+var defensiveCopy = Maps.immutableCopyOf(map);
 ```
 
 ### Merge
@@ -98,18 +98,18 @@ Map<String, Object> merged = Maps.merge(first, second);
 A Union combines two or more sets into one.
 
 ```java
-Set<String> first = Sets.createFrom("one", "two", "three");
-Set<String> second = Sets.createFrom("four", "crab");
-Set<String> union = Sets.unionOf(first, second);
+var first = Sets.createFrom("one", "two", "three");
+var second = Sets.createFrom("four", "crab");
+var union = Sets.unionOf(first, second);
 // {"one", "two", "three", "four", crab"}
 ```
 
 ### Intersection
 An Intersection finds the elements in common between two or more sets.
 ```java
-Set<String> first = Sets.createFrom("You", "Are", "What", "You", "Create");
-Set<String> second = Sets.createFrom("What", "You", "Create", "Creates" "You");
-Set<String> intersection = Sets.intersectionOf(first, second);
+var first = Sets.createFrom("You", "Are", "What", "You", "Create");
+var second = Sets.createFrom("What", "You", "Create", "Creates" "You");
+var intersection = Sets.intersectionOf(first, second);
 //{ "You", "Create"}
 ```
 
